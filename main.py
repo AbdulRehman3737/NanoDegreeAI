@@ -1,5 +1,6 @@
 # Init
 from random import random
+from abc import ABC, abstractmethod
 
 import module_math as mm
 
@@ -111,11 +112,42 @@ print(mm.access_var)
 print(dir(random))
 
 # Classes init (OOP)
-class Student:
-    def __init__(self, name, age, department):
+
+class Person(ABC):
+    def __init__(self, name, age, gender):
         self.name = name
         self.age = age
+        self.__gender = gender # private variable, can only be accessed within the class, and not by instances of the class or subclasses, it is denoted by double underscore __ before the variable name
+    # Abstract method, which is a method that is declared but not implemented in the parent class, and must be implemented in the child class, if the child class does not implement the abstract method, it will raise an error
+    @abstractmethod
+    def is_faculty(self):
+        pass
+    def gender_print(self):
+        return self.__gender
+class Student(Person):
+    def __init__(self, name, age, gender, department):
+        # Inheritance, super() is used to call the __init__ method of the parent class, which allows us to initialize the name and age attributes of the Student class using the __init__ method of the Person class
+        super().__init__(name, age, gender)
         self.department = department
         
-student1 = Student('Arthas Menethil', 30, 'CEO of Icecrown Citadel')
-print("Student: ", student1.name, student1.age, student1.department)
+    def is_faculty(self):
+        return False
+class Teacher(Person):
+    def __init__(self, name, age, gender, department):
+        # Inheritance, super() is used to call the __init__ method of the parent class, which allows us to initialize the name and age attributes of the Student class using the __init__ method of the Person class
+        super().__init__(name, age, gender)
+        self.department = department
+        
+    def is_faculty(self):
+        return True
+
+# Cannot instantiate an abstract class, which is a class that contains one or more abstract methods, and cannot be instantiated directly, but can be subclassed by other classes that implement the abstract methods,
+# if we try to instantiate an abstract class, it will raise an error
+try:
+    person_instance = Person("asd", 10)
+except Exception as e:
+    print(e)
+student1 = Student('Arthas Menethil', 30, "Doom", "CEO of Icecrown Citadel")
+teacher1 = Teacher('Uther Lightbringer', 45, "Light", "Paladin of Silver Hand")
+print("Student: ", student1.name, student1.age, student1.department, student1.is_faculty(), student1.gender_print())
+print("Teacher: ", teacher1.name, teacher1.age, teacher1.department, teacher1.is_faculty(), teacher1.gender_print())
