@@ -151,3 +151,184 @@ student1 = Student('Arthas Menethil', 30, "Doom", "CEO of Icecrown Citadel")
 teacher1 = Teacher('Uther Lightbringer', 45, "Light", "Paladin of Silver Hand")
 print("Student: ", student1.name, student1.age, student1.department, student1.is_faculty(), student1.gender_print())
 print("Teacher: ", teacher1.name, teacher1.age, teacher1.department, teacher1.is_faculty(), teacher1.gender_print())
+
+# =========================
+# Additional Important Concepts
+# =========================
+
+# Tuples (immutable collections)
+tuple_example = ('apple', 'banana', 'orange')
+print("Tuple:", tuple_example, tuple_example[1])
+
+# List methods
+numbers = [1, 2, 3]
+numbers.append(4)
+numbers.remove(2)
+numbers.insert(1, 99)
+print("List methods:", numbers)
+
+# List comprehension
+squares = [x*x for x in range(5)]
+print("List comprehension:", squares)
+
+# break, continue, pass
+for i in range(5):
+    if i == 2:
+        continue
+    if i == 4:
+        break
+    print("Loop control:", i)
+
+def empty_func():
+    pass
+
+# While loop
+counter = 0
+while counter < 3:
+    print("While loop:", counter)
+    counter += 1
+
+# enumerate() gives index + value
+langs = ['Python', 'Java', 'C++']
+for index, value in enumerate(langs):
+    print("Enumerate:", index, value)
+
+# zip() combines iterables
+names = ['John', 'Jane']
+scores = [90, 85]
+
+for n, s in zip(names, scores):
+    print("Zip:", n, s)
+
+# Lambda functions
+multiply = lambda a, b: a * b
+print("Lambda:", multiply(3, 4))
+
+# map() applies function to iterable
+mapped = list(map(lambda x: x * 2, [1, 2, 3]))
+print("Map:", mapped)
+
+# filter() filters iterable
+filtered = list(filter(lambda x: x % 2 == 0, [1, 2, 3, 4]))
+print("Filter:", filtered)
+
+# Recursion
+def factorial(n):
+    if n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+print("Recursion factorial:", factorial(5))
+
+# *args and **kwargs
+def demo_args(*args, **kwargs):
+    print("Args:", args)
+    print("Kwargs:", kwargs)
+
+demo_args(1, 2, 3, name="Python", type="Language")
+
+# Scope
+global_var = "I am global"
+
+def scope_test():
+    local_var = "I am local"
+    print(global_var)
+    print(local_var)
+
+scope_test()
+
+# Type checking
+print("Type checking:", isinstance(5, int))
+
+# Copy vs reference
+list_a = [1, 2, 3]
+list_b = list_a
+list_c = list_a.copy()
+
+list_b.append(4)
+
+print("Reference copy:", list_a)
+print("Actual copy:", list_c)
+
+# Generator using yield
+def simple_generator():
+    yield 1
+    yield 2
+    yield 3
+
+for val in simple_generator():
+    print("Generator:", val)
+
+# =========================
+# More OOP Concepts
+# =========================
+
+class Animal:
+    species = "Unknown"  # Class variable
+
+    def __init__(self, name):
+        self.name = name
+
+    # String representation
+    def __str__(self):
+        return f"Animal: {self.name}"
+
+    # Static method
+    @staticmethod
+    def static_example():
+        return "Static methods do not access instance data"
+
+    # Class method
+    @classmethod
+    def class_example(cls):
+        return cls.species
+
+dog = Animal("Husky")
+
+print(dog)
+print(Animal.static_example())
+print(Animal.class_example())
+
+# Getter and Setter (Encapsulation)
+
+class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance
+
+    def get_balance(self):
+        return self.__balance
+
+    def set_balance(self, amount):
+        if amount >= 0:
+            self.__balance = amount
+
+account = BankAccount(1000)
+
+print("Getter:", account.get_balance())
+
+account.set_balance(500)
+
+print("Setter:", account.get_balance())
+
+# =========================
+# Regular Expressions (Regex)
+# =========================
+
+import re
+
+text = "My phone number is 12345"
+
+match = re.search(r'\d+', text)
+
+if match:
+    print("Regex found:", match.group())
+
+# =========================
+# Main Entry Point
+# =========================
+
+def main():
+    print("Program started from main")
+
+if __name__ == "__main__":
+    main()
