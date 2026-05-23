@@ -72,3 +72,35 @@ print("Sliced array from n_dimension_array:\n", n_dimension_array[0:2, 0:2])
 print("Sliced array from three_d_array:\n", three_d_array[0:2, 0:2, 0:2])
 # For 4-d arrays, we can use [time_start:time_end, depth_start:depth_end, row_start:row_end, column_start:column_end] to slice elements
 print("Sliced array from four_d_array:\n", four_d_array[0:2, 0:2, 0:2, 0:2])
+
+# dType of an array can be specified using the dtype parameter
+int_array = np.array([15, 21, 36], dtype=int)
+float_array = np.array([1, 2, 3], dtype=float)
+print("Integer array:", int_array, "Data type:", int_array.dtype)
+print("Float array:", float_array, "Data type:", float_array.dtype)
+
+# asType() method can be used to change the data type of an array
+converted_array = int_array.astype(float)
+print("Converted array:", converted_array, "Data type:", converted_array.dtype)
+
+# copy and view of an array
+original_array = np.array([1, 2, 3])
+# A view is a new array object that looks at the same data of the original array. Changes to the view will affect the original array and vice versa.
+view_array = original_array.view()
+view_array[0] = 10
+print("Original array after modifying view:", original_array)
+# A copy is a new array object that has its own data. Changes to the copy will not affect the original array and vice versa.
+copy_array = original_array.copy()
+copy_array[0] = 20
+print("Original array after modifying copy:", original_array, "Copy array:", copy_array)
+
+# Base attribute finds if an array is original or a view
+# If it returns none, it not pointing to anything, its original
+# If it returns an array, it a view pointing at something
+print("Original: ", original_array.base, "Copy: ", copy_array.base, "View: ", view_array.base)
+
+# Reshaping an array can be done using the reshape() method
+# Reshaping does not change the data of the array, it only changes the shape. The total number of elements must remain the same.
+# Reshape takes in its argument which are (arrays, elements in each dimension) and returns a new array with the specified shape
+reshaped_array = original_array.reshape(3, 1)
+print("Reshaped array:\n", reshaped_array, "Shape:", reshaped_array.shape)
