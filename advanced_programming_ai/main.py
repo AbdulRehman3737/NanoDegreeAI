@@ -101,6 +101,12 @@ print("Original: ", original_array.base, "Copy: ", copy_array.base, "View: ", vi
 
 # Reshaping an array can be done using the reshape() method
 # Reshaping does not change the data of the array, it only changes the shape. The total number of elements must remain the same.
-# Reshape takes in its argument which are (arrays, elements in each dimension) and returns a new array with the specified shape
+# Reshape takes in its argument which are (no of arrays of previous dimension, elements in each dimension) and returns a view with the specified shape
 reshaped_array = original_array.reshape(3, 1)
 print("Reshaped array:\n", reshaped_array, "Shape:", reshaped_array.shape)
+# 3-d array can be reshaped to 2-d array by specifying the new shape
+reshaped_three_d_array = three_d_array.reshape(2, 6)
+print("Reshaped 3-d array:\n", reshaped_three_d_array, "Shape:", reshaped_three_d_array.shape)
+# Unknown dimension can be specified using -1, which will be inferred from the length of the array and the remaining dimensions
+reshaped_four_d_array = four_d_array.reshape(2, 2, -1)
+print("Reshaped 4-d array:\n", reshaped_four_d_array, "Shape:", reshaped_four_d_array.shape)
