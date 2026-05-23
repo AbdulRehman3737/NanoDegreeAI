@@ -2,7 +2,7 @@
 from random import random
 from abc import ABC, abstractmethod
 
-import module_math as mm
+import python_1.module_math as mm
 
 x=15
 # function initialize
