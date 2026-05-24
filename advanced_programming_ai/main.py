@@ -190,3 +190,68 @@ even_mask = array_to_filter % 2 == 0
 filtered_even_array = array_to_filter[even_mask]
 print("Filtered array (even numbers):", filtered_even_array)
 print("True or False: ", array_to_filter[[True, False, True, False, True, False, True, False, True]])
+
+# np.zeros() function can be used to create an array filled with zeros. It takes the shape of the array as an argument.
+zeros_array = np.zeros((3, 4))
+print("Array filled with zeros:\n", zeros_array)
+# Other functions to create arrays filled with specific values include np.ones() for ones, np.full() for a specified value, and np.eye() for an identity matrix.
+ones_array = np.ones((3, 4))
+print("Array filled with ones:\n", ones_array)
+full_array = np.full((3, 4), 7)
+print("Array filled with a specified value (7):\n", full_array)
+identity_matrix = np.eye(4)
+print("Identity matrix:\n", identity_matrix)
+
+# .add() function can be used to perform element-wise addition of two arrays. It takes two arrays as arguments and returns a new array with the sum of the elements.
+# these are all vectorized operations that can be performed on arrays without the need for explicit loops, which allows for more efficient computation.
+array_a = np.array([[1, 2], [3, 4]])
+array_b = np.array([[5, 6], [7, 8]])
+added_array = np.add(array_a, array_b)
+print("Element-wise addition of array_a and array_b:\n", added_array)
+# Other element-wise operations include np.subtract() for subtraction, np.multiply() for multiplication, and np.divide() for division.
+
+# BLAS (Basic Linear Algebra Subprograms) is a specification for a set of low-level routines that perform common linear algebra operations such as vector and matrix multiplication,
+# dot products, and solving linear systems. It is designed to be highly efficient and optimized for performance on various hardware architectures. 
+# BLAS is often used as a building block for higher-level linear algebra libraries and applications, providing a standardized interface for performing these operations efficiently.
+# BLAS uses CPU vectorization and multi-threading to optimize performance, and it can take advantage of SIMD instructions to further improve the speed of computations.
+
+# SIMD (Single Instruction, Multiple Data) is a parallel computing architecture that allows a single instruction to be applied to multiple data points simultaneously. 
+# It is commonly used in modern CPUs and GPUs to improve performance by processing multiple data elements in parallel. SIMD can be particularly beneficial for tasks that involve large arrays or matrices, 
+# such as those commonly encountered in scientific computing and machine learning, as it can significantly reduce the time required for computations by leveraging data-level parallelism.
+
+# Diff and subtract can be used to compute the difference between two arrays. The diff() function computes the n-th discrete difference along the specified axis, while the subtract() function performs element-wise subtraction of two arrays.
+array_c = np.array([1, 2, 3, 4, 5])
+array_d = np.array([5, 4, 3, 2, 1])
+# diff would be [2-1, 3-2, 4-3, 5-4] = [1, 1, 1, 1]
+difference_array = np.diff(array_c)
+print("Difference between consecutive elements in array_c:", difference_array)
+subtracted_array = np.subtract(array_c, array_d)
+print("Element-wise subtraction of array_c and array_d:", subtracted_array)
+
+# LCM and GCD can be computed using np.lcm() and np.gcd() functions, respectively. The lcm() function computes the least common multiple of two arrays element-wise, while the gcd() function computes the greatest common divisor of two arrays element-wise.
+array_e = np.array([12, 15, 18])
+array_f = np.array([8, 10, 6])
+lcm_array = np.lcm(array_e, array_f)
+print("Least common multiple of array_e and array_f:", lcm_array)
+gcd_array = np.gcd(array_e, array_f)
+print("Greatest common divisor of array_e and array_f:", gcd_array)
+
+# Can create a set using np.unique() function, which returns the unique elements of an array. It can also return the indices of the unique elements and the counts of each unique element.
+array_g = np.array([1, 2, 2, 3, 4, 4, 4, 5])
+unique_elements = np.unique(array_g)
+print("Unique elements in array_g:", unique_elements)
+unique_elements_with_counts = np.unique(array_g, return_counts=True)
+print("Unique elements and their counts in array_g:", unique_elements_with_counts)
+
+# We can create random numbers and n-dimensional arrays using np.random module, which provides various functions for generating random numbers and arrays. 
+# For example, np.random.rand() can be used to generate an array of random numbers between 0 and 1, while np.random.randint() can be used to generate an array of random integers within a specified range.'
+random_array = np.random.rand(3, 4)
+print("Random array of shape (3, 4):\n", random_array)
+random_integers = np.random.randint(0, 10, size=(3, 4))
+print("Random integers between 0 and 10 of shape (3, 4):\n", random_integers)
+
+# random.choice can be used to generate values with a set probability distribution. It takes an array of values and an array of probabilities as arguments and returns a random sample from the values based on the specified probabilities.
+values = ['A', 'B', 'C', 'D']
+probabilities = [0.5, 0.3, 0.2, 0.0] # Probabilities must sum to 1
+random_sample = np.random.choice(values, size=10, p=probabilities)
+print("Random sample based on specified probabilities:", random_sample)
