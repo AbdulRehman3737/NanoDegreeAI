@@ -110,3 +110,83 @@ print("Reshaped 3-d array:\n", reshaped_three_d_array, "Shape:", reshaped_three_
 # Unknown dimension can be specified using -1, which will be inferred from the length of the array and the remaining dimensions
 reshaped_four_d_array = four_d_array.reshape(2, 2, -1)
 print("Reshaped 4-d array:\n", reshaped_four_d_array, "Shape:", reshaped_four_d_array.shape)
+
+# flattening can be done with reshape or with flatten() method
+flattened_array = original_array.reshape(-1)
+print("Flattened array:", flattened_array, "Shape:", flattened_array.shape)
+flattened_array_2 = original_array.flatten()
+print("Flattened array using flatten():", flattened_array_2, "Shape:", flattened_array_2.shape)
+
+# nditer is a multi-dimensional iterator object to iterate over arrays of any shape. It provides an efficient way to access and manipulate elements of an array.
+# Helps to avoid nested loops when iterating over multi-dimensional arrays, which can be inefficient and hard to read. It allows us to
+# iterate over each element of the array in a single loop, regardless of the number of dimensions.
+print("Iterating over n_dimension_array:")
+for element in np.nditer(n_dimension_array):
+    print(element)
+
+# op_dtype is a prop that can be used to specify the data type of the output array when performing operations on arrays.
+# It is used in functions like np.add, np.multiply, etc. to ensure that the result of the operation is of a specific data type.
+# flag = buffered is used to create a temporary buffer to hold the data during iteration, which can improve performance when iterating over large arrays.
+print("Iterating with op_dtype and buffered flag:")
+for element in np.nditer(n_dimension_array, op_dtypes=['S'], flags=['buffered']):
+    print(element)
+
+# ndenumerate returns indexes and values of an array as a tuple. It is used to iterate over multi-dimensional arrays and get both the index and value of each element.
+print("Enumerating n_dimension_array:")
+for index, value in np.ndenumerate(n_dimension_array):
+    print("Enumerate:", index, value)
+
+# concatenate arrays using np.concatenate() function. It takes a sequence of arrays and concatenates them along a specified axis.
+# axis is a prop that specifies the axis along which the arrays will be concatenated. The default is 0, which means the arrays will be concatenated along the first axis (rows).
+array1 = np.array([[1, 2], [3, 4]])
+array2 = np.array([[5, 6], [7, 8]])
+concatenated_array = np.concatenate((array1, array2), axis=0)
+print("Concatenated array along axis 0:\n", concatenated_array)
+concatenated_array_axis1 = np.concatenate((array1, array2), axis=1)
+print("Concatenated array along axis 1:\n", concatenated_array_axis1)
+
+# We also have dstack, hstack, vstack for stacking arrays along different axes without needing to specify the axis parameter.
+# dstack stacks arrays along the third axis (depth), hstack stacks arrays horizontally (along columns), and vstack stacks arrays vertically (along rows).
+dstacked_array = np.dstack((array1, array2))
+print("Dstacked array:\n", dstacked_array)
+hstacked_array = np.hstack((array1, array2))
+print("Hstacked array:\n", hstacked_array)
+vstacked_array = np.vstack((array1, array2))
+print("Vstacked array:\n", vstacked_array)
+# there is a normal stack() function that can be used to stack arrays along a specified axis, similar to concatenate but with more options for stacking.
+stacked_array = np.stack((array1, array2), axis=0)
+print("Stacked array along axis 0:\n", stacked_array)
+# split() function can be used to split an array into multiple sub-arrays along a specified axis. It takes the array to be split,
+# the number of splits, and the axis along which to split as arguments.
+split_array = np.split(concatenated_array, 2, axis=0)
+print("Split array along axis 0:\n", split_array)
+# hsplit() and vsplit() can be used to split arrays horizontally and vertically, respectively, without needing to specify the axis parameter.
+hsplit_array = np.hsplit(concatenated_array, 2)
+print("Hsplit array:\n", hsplit_array)
+vsplit_array = np.vsplit(concatenated_array, 2)
+print("Vsplit array:\n", vsplit_array)
+# sorting an array can be done using the sort() method, which sorts the array in-place, or the sorted() function, which returns a new sorted array.
+# We can also specify the axis along which to sort the array. By default, it sorts along the last axis.
+sorted_array = np.sort(concatenated_array, axis=0)
+print("Sorted array along axis 0:\n", sorted_array)
+sorted_array_axis1 = np.sort(concatenated_array, axis=1)
+print("Sorted array along axis 1:\n", sorted_array_axis1)
+
+# searchSorted function can be used to find the indices where elements should be inserted to maintain order in a sorted array.
+# It takes a sorted array and the values to be inserted as arguments.
+sorted_array_1d = np.array([1, 3, 5, 7, 9])
+values_to_insert = [4, 10]
+insertion_indices = np.searchsorted(sorted_array_1d, values_to_insert)
+print("Insertion indices for values in sorted_array_1d:", insertion_indices)
+
+# Filtering an array can be done using boolean indexing, where we create a boolean mask based on a condition and use it to filter the array.
+# For example, to filter out elements greater than 5 from an array, we can create a boolean mask and use it to index the array.
+array_to_filter = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+boolean_mask = array_to_filter > 5
+filtered_array = array_to_filter[boolean_mask]
+print("Filtered array (elements greater than 5):", filtered_array)
+# A very simple example of filtering could be to filter out even numbers from an array. We can create a boolean mask for even numbers and use it to filter the array.
+even_mask = array_to_filter % 2 == 0
+filtered_even_array = array_to_filter[even_mask]
+print("Filtered array (even numbers):", filtered_even_array)
+print("True or False: ", array_to_filter[[True, False, True, False, True, False, True, False, True]])
