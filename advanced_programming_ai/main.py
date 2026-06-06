@@ -255,3 +255,102 @@ values = ['A', 'B', 'C', 'D']
 probabilities = [0.5, 0.3, 0.2, 0.0] # Probabilities must sum to 1
 random_sample = np.random.choice(values, size=10, p=probabilities)
 print("Random sample based on specified probabilities:", random_sample)
+
+
+
+
+# -----------------------------------PANDAS-------------------------------------------
+import pandas as pd
+import requests
+from io import StringIO
+
+# Dataframes are 2-dimensional labeled data structures with columns of potentially different types. They are similar to SQL tables or Excel spreadsheets and are one of the most commonly used data structures in pandas.
+df = pd.read_csv('C:\\Work\\NanoDegreeAI\\advanced_programming_ai\\datasets\\aug_train.csv')
+print("Dataframe loaded successfully. Shape:", df.shape, df)
+
+# Can also read df from a url like this:
+url = 'https://raw.githubusercontent.com/ageron/handson-ml/master/datasets/housing/housing.csv'
+df = pd.read_csv(url)
+print("Dataframe loaded from URL successfully. Shape:", df.shape, df)
+
+# To feign as a browser and avoid getting blocked by the server, we can use the headers parameter in the read_csv() function to specify a user-agent string. This can help to bypass restrictions that some servers may have in place for automated requests.
+# We will use a GET request to fetch the data from the URL, and we can specify the headers to include a user-agent string that mimics a browser. This can help to avoid getting blocked by the server when trying to access the data.
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+# Use stringIO and requests to read the data from the URL with headers
+response = requests.get(url, headers=headers)
+# StringIO allows us to treat the response text as a file-like object, which can be passed to the read_csv() function to load the data into a dataframe.
+df = pd.read_csv(StringIO(response.text))
+print("Dataframe loaded from URL with headers successfully. Shape:", df.shape, df)
+
+# We can read a tsv file using the read_csv() function by specifying the delimiter as a tab character ('\t').
+file_path = 'C:\\Work\\NanoDegreeAI\\advanced_programming_ai\\datasets\\movie_titles_metadata.tsv'
+# Need to give names param to specify the column names since tsv files may not have a header row. The names parameter takes a list of column names that will be used to label the columns in the resulting dataframe.
+df_tsv = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'])
+print("Dataframe loaded from TSV file successfully. Shape:", df_tsv.shape, df_tsv)
+
+# Index column can be specified using the index_col parameter in the read_csv() function. This allows us to set a specific column as the index of the dataframe, which can be useful for data manipulation and analysis.
+# The index_col parameter takes the name of the column to be used as the index or the column number (starting from 0) as an argument. Setting index_col to a specific column will make that column the index of the dataframe, 
+# which can be used for easier data access and manipulation.
+df_indexed = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], index_col='release_year')
+print("Dataframe loaded with index column successfully. Shape:", df_indexed.shape, df_indexed)
+
+# Header can be specified using the header parameter in the read_csv() function. This allows us to specify which row in the file should be used as the header (column names) of the dataframe.
+
+# useCols parameter can be used to specify which columns to read from the file. This can be useful when we only need a subset of the columns for our analysis, as it can help to reduce memory usage and improve performance.
+# The usecols parameter takes a list of column names or column numbers (starting from 0) as an argument. Only the specified columns will be read from the file and included in the resulting dataframe.
+df_usecols = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], usecols=['name', 'rating'])
+print("Dataframe loaded with specified columns successfully. Shape:", df_usecols.shape, df_usecols)
+
+# Skiprows and nrows parameters can be used to specify which rows to skip and how many rows to read from the file, respectively. This can be useful when we want to ignore certain rows (e.g., header rows, metadata) 
+# or when we only want to read a specific number of rows for analysis.
+# The skiprows parameter takes an integer or a list of integers as an argument, which specifies the number of rows to skip at the beginning of the file or the specific row numbers to skip. 
+# The nrows parameter takes an integer as an argument, which specifies the number of rows to read from the file after skipping the specified rows.
+df_skip_nrows = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], skiprows=1, nrows=5)
+print("Dataframe loaded with skipped rows and limited number of rows successfully. Shape:", df_skip_nrows.shape, df_skip_nrows)
+
+# encoding param can be used to specify the encoding of the file being read. This is important when dealing with files that may contain special characters or non-ASCII text, as it ensures that the data is read correctly and prevents encoding-related errors.
+# The encoding parameter takes a string as an argument, which specifies the encoding of the file (e.g., 'utf-8', 'latin-1', 'iso-8859-1').
+
+# on_bad_lines parameter can be used to specify how to handle lines in the file that do not conform to the expected format (e.g., lines with missing values, extra columns). 
+# This can help to prevent errors during the reading process and allow for more flexible handling of imperfect data.
+# The on_bad_lines parameter takes a string as an argument, which specifies how to handle bad lines (e.g., 'error' to raise an error, 'warn' to issue a warning and skip the line, 'skip' to silently skip the line).
+
+# .info method can be used to get a concise summary of the dataframe, including the number of non-null entries, data types of each column, and memory usage.
+# This can be useful for understanding the structure of the data and identifying any potential issues (e.g., missing values, incorrect data types) that may need to be addressed before analysis.
+print("Dataframe info:", df.info())
+
+# dtype param can be used to specify the data types of the columns in the dataframe. This can be useful for ensuring that the data is read correctly and for optimizing memory usage,
+# as pandas will use the specified data types when loading the data into memory.
+# The dtype parameter takes a dictionary as an argument, where the keys are the column names and the values are the desired data types (e.g., {'column_name': 'data_type'}). 
+# This allows us to specify the data type for each column in the dataframe, which can help to prevent issues related to incorrect data types and improve performance.
+# if getting error that cannot convert according to rule safe, can use the parameter errors='coerce' to convert invalid parsing to NaN, which allows the reading process to continue without raising an error.
+df_dtype = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], dtype={'rating': int}, errors='coerce')
+print("Dataframe loaded with specified data types successfully. Shape:", df_dtype.shape, df_dtype)
+
+# parse_dates parameter can be used to specify which columns should be parsed as dates when reading the data. This can be useful for ensuring that date information is correctly interpreted and can be easily manipulated for analysis.
+# The parse_dates parameter takes a list of column names or column numbers (starting from 0) as an argument, which specifies the columns to be parsed as dates. This allows pandas to automatically convert the specified columns into datetime objects, which can be used for various date-related operations and analyses.
+df_parse_dates = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], parse_dates=['release_year'])
+print("Dataframe loaded with parsed dates successfully. Shape:", df_parse_dates.shape, df_parse_dates.info())
+
+# converters parameter can be used to specify custom functions for converting the data in specific columns when reading the data. This can be useful for handling data that may require special processing or cleaning before it can be used for analysis.
+# The converters parameter takes a dictionary as an argument, where the keys are the column names and the values are the custom functions to be applied to the data in those columns (e.g., {'column_name': function}). This allows us to apply specific transformations or cleaning operations to the data in the specified columns during the reading process, which can help to ensure that the data is in the desired format for analysis.
+def convert_year(year):
+    try:
+        if year == 4:
+            return 20000001
+        else:
+            return int(year)
+    except ValueError:
+        return None  # or you could choose to return a default value or raise an error
+
+
+df_converters = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], converters={'sno': convert_year})
+print("Dataframe loaded with custom converters successfully. Shape:", df_converters, df_converters.info())
+
+# Chunking can be done using the chunksize parameter in the read_csv() function, which allows us to read the data in smaller, manageable chunks instead of loading the entire dataset into memory at once. 
+# This can be particularly useful when dealing with large datasets that may not fit into memory.
+# The chunksize parameter takes an integer as an argument, which specifies the number of rows to read at a time. When the chunksize parameter is used, 
+# the read_csv() function returns an iterator that yields chunks of the specified size as dataframes, allowing us to process the data in smaller portions and avoid memory issues.
+chunk_size = 2
+for chunk in pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], chunksize=chunk_size):
+    print("Chunk:\n", chunk)
