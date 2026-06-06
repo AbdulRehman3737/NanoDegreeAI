@@ -324,19 +324,20 @@ print("Dataframe info:", df.info())
 # The dtype parameter takes a dictionary as an argument, where the keys are the column names and the values are the desired data types (e.g., {'column_name': 'data_type'}). 
 # This allows us to specify the data type for each column in the dataframe, which can help to prevent issues related to incorrect data types and improve performance.
 # if getting error that cannot convert according to rule safe, can use the parameter errors='coerce' to convert invalid parsing to NaN, which allows the reading process to continue without raising an error.
-df_dtype = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], dtype={'rating': int}, errors='coerce')
+df_dtype = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], dtype={'rating': float})
 print("Dataframe loaded with specified data types successfully. Shape:", df_dtype.shape, df_dtype)
 
 # parse_dates parameter can be used to specify which columns should be parsed as dates when reading the data. This can be useful for ensuring that date information is correctly interpreted and can be easily manipulated for analysis.
 # The parse_dates parameter takes a list of column names or column numbers (starting from 0) as an argument, which specifies the columns to be parsed as dates. This allows pandas to automatically convert the specified columns into datetime objects, which can be used for various date-related operations and analyses.
 df_parse_dates = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], parse_dates=['release_year'])
+# Expects actual dates here
 print("Dataframe loaded with parsed dates successfully. Shape:", df_parse_dates.shape, df_parse_dates.info())
 
 # converters parameter can be used to specify custom functions for converting the data in specific columns when reading the data. This can be useful for handling data that may require special processing or cleaning before it can be used for analysis.
 # The converters parameter takes a dictionary as an argument, where the keys are the column names and the values are the custom functions to be applied to the data in those columns (e.g., {'column_name': function}). This allows us to apply specific transformations or cleaning operations to the data in the specified columns during the reading process, which can help to ensure that the data is in the desired format for analysis.
 def convert_year(year):
     try:
-        if year == 4:
+        if year == '1999':
             return 20000001
         else:
             return int(year)
@@ -344,7 +345,7 @@ def convert_year(year):
         return None  # or you could choose to return a default value or raise an error
 
 
-df_converters = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], converters={'sno': convert_year})
+df_converters = pd.read_csv(file_path, delimiter='\t', names=['sno', 'name', 'release_year', 'rating', 'votes', 'genres'], converters={'release_year': convert_year})
 print("Dataframe loaded with custom converters successfully. Shape:", df_converters, df_converters.info())
 
 # Chunking can be done using the chunksize parameter in the read_csv() function, which allows us to read the data in smaller, manageable chunks instead of loading the entire dataset into memory at once. 
