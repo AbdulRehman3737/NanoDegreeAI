@@ -1,0 +1,101 @@
+age,gender,fever,cough,city,has_covid
+60,Male,103,Mild,Karachi,No
+27,Male,100,Mild,Dera Ghazi Khan,Yes
+42,Male,101,Mild,Dera Ghazi Khan,No
+31,Female,98,Mild,Karachi,No
+65,Female,101,Mild,Multan,No
+84,Female,,Mild,Banu,Yes
+14,Male,101,Strong,Banu,No
+20,Female,,Strong,Multan,Yes
+19,Female,100,Strong,Banu,No
+64,Female,101,Mild,Dera Ghazi Khan,No
+75,Female,,Mild,Dera Ghazi Khan,No
+65,Female,98,Mild,Multan,Yes
+25,Female,99,Strong,Karachi,No
+64,Male,102,Mild,Banu,Yes
+51,Male,104,Mild,Banu,No
+70,Male,103,Strong,Karachi,Yes
+69,Female,103,Mild,Karachi,Yes
+40,Female,98,Strong,Dera Ghazi Khan,No
+64,Female,98,Mild,Banu,Yes
+42,Female,,Strong,Banu,Yes
+12,Male,98,Strong,Banu,No
+73,Male,98,Mild,Banu,Yes
+71,Female,98,Strong,Karachi,Yes
+80,Female,98,Mild,Dera Ghazi Khan,Yes
+13,Female,100,Strong,Karachi,No
+23,Male,,Mild,Multan,No
+19,Female,100,Mild,Karachi,Yes
+33,Female,102,Strong,Dera Ghazi Khan,No
+16,Male,104,Mild,Karachi,No
+34,Female,,Strong,Multan,Yes
+15,Male,101,Mild,Dera Ghazi Khan,Yes
+83,Male,103,Mild,Karachi,No
+34,Female,101,Strong,Dera Ghazi Khan,Yes
+26,Female,98,Mild,Karachi,No
+74,Male,102,Mild,Multan,Yes
+82,Female,102,Strong,Banu,No
+38,Female,101,Mild,Banu,No
+55,Male,100,Mild,Karachi,No
+49,Female,101,Mild,Dera Ghazi Khan,Yes
+50,Female,103,Mild,Karachi,No
+49,Female,102,Mild,Dera Ghazi Khan,No
+82,Male,,Mild,Karachi,Yes
+27,Male,100,Mild,Dera Ghazi Khan,Yes
+22,Female,99,Mild,Banu,Yes
+20,Male,102,Strong,Dera Ghazi Khan,No
+72,Male,99,Mild,Banu,No
+19,Female,101,Mild,Multan,No
+18,Female,104,Mild,Banu,No
+66,Male,99,Strong,Banu,No
+44,Male,104,Mild,Multan,No
+19,Male,101,Mild,Dera Ghazi Khan,Yes
+11,Female,100,Strong,Karachi,Yes
+47,Female,100,Strong,Banu,Yes
+83,Male,98,Mild,Dera Ghazi Khan,Yes
+60,Female,99,Mild,Multan,Yes
+81,Female,101,Mild,Multan,Yes
+71,Male,,Strong,Karachi,No
+49,Female,99,Strong,Banu,No
+23,Male,98,Strong,Multan,Yes
+6,Female,104,Mild,Karachi,Yes
+24,Female,102,Strong,Banu,Yes
+81,Female,98,Strong,Multan,No
+56,Female,104,Strong,Banu,Yes
+10,Male,100,Mild,Banu,No
+42,Male,104,Mild,Multan,No
+69,Female,102,Mild,Banu,No
+51,Male,104,Mild,Karachi,No
+65,Male,99,Mild,Banu,No
+54,Female,104,Strong,Karachi,No
+73,Female,103,Mild,Dera Ghazi Khan,No
+68,Female,101,Strong,Dera Ghazi Khan,No
+75,Female,104,Strong,Dera Ghazi Khan,No
+83,Female,101,Mild,Karachi,No
+34,Male,98,Strong,Karachi,Yes
+34,Female,104,Strong,Dera Ghazi Khan,No
+5,Male,102,Mild,Karachi,Yes
+80,Male,100,Mild,Banu,Yes
+8,Female,101,Mild,Karachi,No
+11,Male,100,Mild,Banu,Yes
+48,Female,103,Mild,Karachi,Yes
+14,Female,99,Mild,Multan,Yes
+65,Male,99,Mild,Dera Ghazi Khan,No
+24,Male,98,Mild,Karachi,Yes
+17,Female,104,Mild,Karachi,No
+69,Female,98,Strong,Multan,No
+16,Female,103,Mild,Banu,Yes
+25,Male,104,Mild,Banu,Yes
+47,Male,101,Strong,Banu,No
+5,Female,100,Mild,Karachi,No
+46,Male,103,Strong,Banu,No
+59,Female,99,Strong,Dera Ghazi Khan,No
+38,Male,,Mild,Dera Ghazi Khan,Yes
+82,Female,102,Strong,Karachi,No
+27,Male,100,Mild,Karachi,Yes
+79,Male,,Strong,Karachi,Yes
+12,Female,104,Mild,Banu,No
+51,Female,101,Strong,Karachi,Yes
+20,Female,101,Mild,Banu,No
+5,Female,98,Strong,Multan,No
+10,Female,98,Strong,Karachi,Yes
