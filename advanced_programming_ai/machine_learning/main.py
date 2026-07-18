@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from knn_classifier import KNN_Classifier
 from linear_regression_model import LinearRegressionModelOLS
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
@@ -115,3 +116,20 @@ if prediction[0] == 0:
     print("The person is not diabetic")
 else:
     print("The person is diabetic")
+    
+    
+# KNN Usage
+classifier = KNN_Classifier(distance_metric='euclidean')
+diabetes_data = pd.read_csv('C:\\Work\\Nano\\advanced_programming_ai\\datasets\\diabetes.csv', encoding='latin1')
+X = diabetes_data.drop(columns=['Outcome'])
+Y = diabetes_data['Outcome']
+X = X.to_numpy()
+Y = Y.to_numpy()
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
+k = 5
+predictions = []
+for test_data in X_test:
+    predicted_class = classifier.predict(X_train, Y_train, test_data, k)
+    predictions.append(predicted_class)
+accuracy = accuracy_score(Y_test, predictions)
+print("KNN Classifier Accuracy: ", accuracy)
