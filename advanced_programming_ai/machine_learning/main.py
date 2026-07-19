@@ -118,7 +118,10 @@ else:
     print("The person is diabetic")
     
     
-# KNN Usage
+# KNN (K-Nearest Neighbours) is a lazy classifier that assigns the majority class
+# among the k closest training points to each test point.
+# Unlike logistic regression it has no training phase — distances are computed at prediction time.
+# Uses our custom KNN_Classifier with euclidean distance.
 classifier = KNN_Classifier(distance_metric='euclidean')
 diabetes_data = pd.read_csv('C:\\Work\\Nano\\advanced_programming_ai\\datasets\\diabetes.csv', encoding='latin1')
 X = diabetes_data.drop(columns=['Outcome'])
@@ -133,3 +136,61 @@ for test_data in X_test:
     predictions.append(predicted_class)
 accuracy = accuracy_score(Y_test, predictions)
 print("KNN Classifier Accuracy: ", accuracy)
+
+
+# KNN using sklearn's built-in implementation for comparison
+# sklearn's KNeighborsClassifier handles distance computation, neighbor finding, and voting internally
+from sklearn.neighbors import KNeighborsClassifier
+
+# Reuse the same diabetes dataset already loaded above
+# Standardize features for consistent distance-based comparisons
+scalar_sklearn = StandardScaler()
+X_train_scaled = scalar_sklearn.fit_transform(X_train)
+X_test_scaled = scalar_sklearn.transform(X_test)
+
+# n_neighbors=5 sets k=5, the number of nearest neighbours to consult for each prediction
+knn_sklearn = KNeighborsClassifier(n_neighbors=5)
+knn_sklearn.fit(X_train_scaled, Y_train)
+
+sklearn_predictions = knn_sklearn.predict(X_test_scaled)
+sklearn_accuracy = accuracy_score(Y_test, sklearn_predictions)
+print("Sklearn KNN Classifier Accuracy: ", sklearn_accuracy)
+
+
+
+# SVM Classifier is a supervised learning algorithm that finds the optimal hyperplane to separate classes in the feature space. It can handle both linear and non-linear classification tasks using kernel functions.
+# Unlike logistic regression (which models probabilities), SVM directly maximizes the
+# margin between classes, making it robust to outliers near the decision boundary.
+from support_vector_machine import svm_classifier
+# lambda_parameter=0.01 controls regularization: smaller values allow larger margins
+# at the risk of overfitting; larger values force smaller weights for a simpler model
+classifier = svm_classifier(learning_rate=0.001, number_of_iterations=1000, lambda_parameter=0.01)
+diabetes_data = pd.read_csv('C:\\Work\\Nano\\advanced_programming_ai\\datasets\\diabetes.csv', encoding='latin1')
+features = diabetes_data.drop(columns=['Outcome'])
+target = diabetes_data['Outcome']
+# Standardize features to zero mean and unit variance — critical for SVM since it
+# computes distances; features on different scales would bias the hyperplane
+scalar = StandardScaler()
+scalar.fit(features)
+standardized_data = scalar.transform(features)
+features = standardized_data
+X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=2)
+# Train the SVM: iterates over all samples, adjusting w and b to maximize the margin
+classifier.fit(X_train, y_train)
+# Evaluate on training data to check if the model has learned the decision boundary
+X_train_prediction = classifier.predict(X_train)
+training_data_accuracy = accuracy_score(y_train, X_train_prediction)
+print("Accuracy on training data via SVM: ", training_data_accuracy)
+
+# Predict on a single patient: same features as the logistic regression example above
+input_data = (5, 166, 72, 19, 175, 25.8, 0.587, 51)
+input_data_as_numpy_array = np.asarray(input_data)
+input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
+# Apply the same scaling used during training to ensure consistent feature magnitudes
+std_data = scalar.transform(input_data_reshaped)
+# Classify: sign(w·x - b) determines which side of the hyperplane the point falls on
+prediction = classifier.predict(std_data)
+if prediction[0] == 0:
+    print("The person is not diabetic (via SVM)")
+else:
+    print("The person is diabetic (via SVM)")
