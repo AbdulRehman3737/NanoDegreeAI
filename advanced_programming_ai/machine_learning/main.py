@@ -5,8 +5,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from knn_classifier import KNN_Classifier
 from linear_regression_model import LinearRegressionModelOLS
+from decision_tree import DecisionTreeClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
+from sklearn.datasets import load_iris
 
 df = pd.read_csv('C:\\Work\\Nano\\advanced_programming_ai\\datasets\\placement.csv', encoding='latin1')
 
@@ -194,3 +196,19 @@ if prediction[0] == 0:
     print("The person is not diabetic (via SVM)")
 else:
     print("The person is diabetic (via SVM)")
+    
+    
+
+# Using Decision Tree here
+iris = load_iris()
+df = pd.DataFrame(iris.data, columns = iris.feature_names)
+df['target'] = iris.target
+targets = iris.target_names
+X = df.iloc[:, :-1].values
+Y = df.iloc[:, -1].values.reshape(-1, 1)
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2, random_state=41)
+
+classifier = DecisionTreeClassifier(min_samples_split = 3, max_depth = 3)
+classifier.fit(X_train, Y_train)
+classifier.print_tree()
